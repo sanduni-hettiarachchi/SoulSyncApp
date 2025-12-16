@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Person running -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M20,8C20,8 18,10 18,12C18,14 20,16 22,16C24,16 26,14 26,12C26,10 24,8 22,8C20,8 20,8 20,8Z" />
+    
+    <!-- Body -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M22,16L22,28C22,28 20,30 20,32L24,32L24,28L22,16Z" />
+    
+    <!-- Arms -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M18,20L16,24L18,26L20,22L18,20Z" />
+    
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M26,20L24,22L26,24L28,20L26,20Z" />
+    
+    <!-- Legs -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M20,28L18,36L20,38L22,36L20,28Z" />
+    
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M24,28L22,36L24,38L26,36L24,28Z" />
+    
+    <!-- Motion lines -->
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M12,24L10,26L12,28L14,26L12,24Z" />
+    
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M10,28L8,30L10,32L12,30L10,28Z" />
+</vector>

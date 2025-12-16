@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Yoga mat -->
+    <path
+        android:fillColor="#8BC34A"
+        android:pathData="M8,32L40,32L40,40L8,40L8,32Z" />
+    
+    <!-- Mat pattern -->
+    <path
+        android:fillColor="#689F38"
+        android:pathData="M8,32L40,32L40,33L8,33L8,32Z" />
+    
+    <path
+        android:fillColor="#689F38"
+        android:pathData="M8,35L40,35L40,36L8,36L8,35Z" />
+    
+    <path
+        android:fillColor="#689F38"
+        android:pathData="M8,38L40,38L40,39L8,39L8,38Z" />
+    
+    <!-- Person in yoga pose -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M24,8C24,8 20,12 20,16C20,20 22,22 24,22C26,22 28,20 28,16C28,12 24,8 24,8Z" />
+    
+    <!-- Body -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M24,22L24,30C24,30 22,32 22,34L26,34L26,30L24,22Z" />
+    
+    <!-- Arms in yoga position -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M20,24L18,26L20,28L22,26L20,24Z" />
+    
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M28,24L26,26L28,28L30,26L28,24Z" />
+    
+    <!-- Legs in yoga pose -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M22,30L20,36L22,38L24,36L22,30Z" />
+    
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M26,30L24,36L26,38L28,36L26,30Z" />
+    
+    <!-- Lotus flower -->
+    <path
+        android:fillColor="#E91E63"
+        android:pathData="M24,4C24,4 22,6 22,8C22,10 23,11 24,11C25,11 26,10 26,8C26,6 24,4 24,4Z" />
+</vector>

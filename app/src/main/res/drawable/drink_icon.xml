@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Water bottle -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M60,20 L60,180 C60,190 68,200 80,200 L120,200 C132,200 140,190 140,180 L140,20 C140,10 132,0 120,0 L80,0 C68,0 60,10 60,20 Z" />
+    
+    <!-- Water bottle cap -->
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M50,20 L150,20 C155,20 160,25 160,30 L160,40 C160,45 155,50 150,50 L50,50 C45,50 40,45 40,40 L40,30 C40,25 45,20 50,20 Z" />
+    
+    <!-- Water level -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M70,40 L70,160 C70,165 75,170 80,170 L120,170 C125,170 130,165 130,160 L130,40 C130,35 125,30 120,30 L80,30 C75,30 70,35 70,40 Z" />
+    
+    <!-- Water drops -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M100,187 A3,3 0 1,1 100,193 A3,3 0 1,1 100,187 Z" />
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M95,193 A2,2 0 1,1 95,197 A2,2 0 1,1 95,193 Z" />
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M105,193 A2,2 0 1,1 105,197 A2,2 0 1,1 105,193 Z" />
+</vector>

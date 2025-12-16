@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">SoulSync</string>
+    <string name="widget_description">Track your daily wellness progress with SoulSync</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_habits">Habits</string>
+    <string name="nav_mood">Mood</string>
+    <string name="nav_hydration">Hydration</string>
+    <string name="nav_stats">Stats</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_profile">Profile</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_message">Good morning</string>
+    <string name="progress_title">You are almost done!</string>
+    <string name="habits_completed">Habits</string>
+    <string name="tasks_completed">Tasks</string>
+    <string name="see_all">See all</string>
+    <string name="todays_habits">Today\'s Habits</string>
+    <string name="todays_challenges">Today\'s Challenges</string>
+    
+    <!-- Habits -->
+    <string name="add_habit">Add Habit</string>
+    <string name="edit_habit">Edit Habit</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="habit_description">Description</string>
+    <string name="habit_target">Target (e.g., 8 glasses, 30 min)</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="mark_complete">Mark Complete</string>
+    <string name="mark_incomplete">Mark Incomplete</string>
+    
+    <!-- Mood Journal -->
+    <string name="mood_journal">Mood Journal</string>
+    <string name="add_mood">Add Mood</string>
+    <string name="mood_note">Add a note (optional)</string>
+    <string name="select_mood">How are you feeling?</string>
+    <string name="mood_calendar">Mood Calendar</string>
+    
+    <!-- Hydration -->
+    <string name="hydration_tracker">Hydration Tracker</string>
+    <string name="glasses_drank">Glasses Drank</string>
+    <string name="add_glass">Add Glass</string>
+    <string name="hydration_goal">Daily Goal</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="reminder_interval">Reminder Interval (minutes)</string>
+    <string name="enable_reminders">Enable Reminders</string>
+    
+    <!-- Stats -->
+    <string name="statistics">Statistics</string>
+    <string name="mood_trend">Mood Trend</string>
+    <string name="step_count">Steps Today</string>
+    <string name="calories_burned">Calories Burned</string>
+    <string name="total_burn">Total Burn</string>
+    <string name="weekly_view">Weekly</string>
+    <string name="monthly_view">Monthly</string>
+    <string name="hydration_trend">Hydration Trend</string>
+    <string name="weekly_summary">Weekly Summary</string>
+    <string name="monthly_summary">Monthly Summary</string>
+    
+    <!-- Common -->
+    <string name="loading">Loading...</string>
+    <string name="error">Error</string>
+    <string name="retry">Retry</string>
+    <string name="share">Share</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Widget -->
+    <string name="widget_title">Wellness Progress</string>
+    <string name="widget_habits_completed">Habits Completed</string>
+    <string name="widget_tap_to_add_mood">Tap to add mood</string>
+    <string name="wellness_widget_description">Track your daily wellness progress and add moods quickly</string>
+    
+    <!-- Notifications -->
+    <string name="hydration_reminder_title">Stay Hydrated!</string>
+    <string name="hydration_reminder_text">Time to drink some water 💧</string>
+    <string name="habit_reminder_title">Habit Reminder</string>
+    <string name="habit_reminder_text">Don\'t forget to complete your habits!</string>
+    
+    <!-- Emojis -->
+    <string name="emoji_happy">😀</string>
+    <string name="emoji_sad">😢</string>
+    <string name="emoji_angry">😠</string>
+    <string name="emoji_excited">🤩</string>
+    <string name="emoji_tired">😴</string>
+    <string name="emoji_stressed">😰</string>
+    <string name="emoji_calm">😌</string>
+    <string name="emoji_love">😍</string>
+    <string name="emoji_neutral">😐</string>
+    <string name="emoji_sick">🤒</string>
+    
+    <!-- Habit Types -->
+    <string name="habit_water">Drink Water</string>
+    <string name="habit_exercise">Exercise</string>
+    <string name="habit_meditation">Meditation</string>
+    <string name="habit_reading">Reading</string>
+    <string name="habit_sleep">Sleep</string>
+    <string name="habit_steps">Steps</string>
+    <string name="habit_yoga">Yoga</string>
+    <string name="habit_running">Running</string>
+    <string name="habit_cycling">Cycling</string>
+    <string name="habit_swimming">Swimming</string>
+    <string name="habit_gym">Gym</string>
+    <string name="habit_gaming">Gaming</string>
+    <string name="habit_music">Music</string>
+    <string name="habit_gardening">Gardening</string>
+    <string name="habit_walking">Walking</string>
+    
+</resources>

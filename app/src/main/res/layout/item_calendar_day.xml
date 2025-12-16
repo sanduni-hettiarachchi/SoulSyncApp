@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="8dp"
+    android:background="@drawable/calendar_day_selector"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Finger Tap Icon (shown when selected) -->
+    <ImageView
+        android:id="@+id/iv_finger_tap"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_finger_tap"
+        android:visibility="gone"
+        android:layout_marginBottom="2dp" />
+
+    <!-- Date Number -->
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Mood Indicator -->
+    <LinearLayout
+        android:id="@+id/mood_indicator"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/mood_indicator_background"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_mood_emoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="😊"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

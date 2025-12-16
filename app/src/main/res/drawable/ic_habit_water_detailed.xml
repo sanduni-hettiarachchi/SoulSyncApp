@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Water drop with gradient effect -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M24,4C24,4 16,12 16,20C16,26 20,30 24,30C28,30 32,26 32,20C32,12 24,4 24,4Z" />
+    
+    <!-- Water drop highlight -->
+    <path
+        android:fillColor="#81D4FA"
+        android:pathData="M24,8C24,8 20,12 20,18C20,22 22,24 24,24C26,24 28,22 28,18C28,12 24,8 24,8Z" />
+    
+    <!-- Water drops around -->
+    <path
+        android:fillColor="#29B6F6"
+        android:pathData="M12,16C12,16 10,14 10,12C10,10 11,9 12,9C13,9 14,10 14,12C14,14 12,16 12,16Z" />
+    
+    <path
+        android:fillColor="#29B6F6"
+        android:pathData="M36,20C36,20 34,18 34,16C34,14 35,13 36,13C37,13 38,14 38,16C38,18 36,20 36,20Z" />
+</vector>

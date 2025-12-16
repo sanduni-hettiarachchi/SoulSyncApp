@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header with Title and Time Period Selector -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/statistics"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_time_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/time_period_options"
+                android:minHeight="48dp" />
+
+        </LinearLayout>
+
+        <!-- Mood Chart -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/background_white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mood_trend"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/mood_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Hydration Chart -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/background_white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                    android:text="@string/hydration_trend"
+                            android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/hydration_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Weekly Statistics Table -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/background_white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_summary_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weekly_summary"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"/>
+
+                <TableLayout
+                    android:id="@+id/weekly_stats_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+
+                    <!-- Table Header -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_header_background"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Day"
+                            android:textColor="@color/text_white"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mood"
+                            android:textColor="@color/text_white"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Habits"
+                            android:textColor="@color/text_white"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Water"
+                            android:textColor="@color/text_white"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
+                    </TableRow>
+
+                    <!-- Data Rows (will be populated dynamically) -->
+                    <TableRow
+                        android:id="@+id/row_monday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_background"
+                        android:padding="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mon" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_mood_mon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_habits_mon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_water_mon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/row_tuesday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_background"
+                        android:padding="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tue" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_mood_tue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_habits_tue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_water_tue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/row_wednesday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_background"
+                        android:padding="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wed" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_mood_wed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_habits_wed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_water_wed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/row_thursday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_background"
+                        android:padding="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Thu" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_mood_thu" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_habits_thu" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_water_thu" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/row_friday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_background"
+                        android:padding="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fri" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_mood_fri" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_habits_fri" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_water_fri" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/row_saturday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_background"
+                        android:padding="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sat" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_mood_sat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_habits_sat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_water_sat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/row_sunday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/table_background"
+                        android:padding="8dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sun" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_mood_sun" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_habits_sun" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                        <TextView android:id="@+id/tv_water_sun" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:gravity="center" android:textColor="@color/text_primary"/>
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <!-- Home Fragment -->
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.wellnessapp.ui.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home" />
+
+    <!-- Habits Fragment -->
+    <fragment
+        android:id="@+id/nav_habits"
+        android:name="com.wellnessapp.ui.habits.HabitsFragment"
+        android:label="@string/nav_habits"
+        tools:layout="@layout/fragment_habits" />
+
+    <!-- Hydration Fragment -->
+    <fragment
+        android:id="@+id/nav_hydration"
+        android:name="com.wellnessapp.ui.hydration.HydrationFragment"
+        android:label="@string/nav_hydration"
+        tools:layout="@layout/fragment_hydration" />
+
+    <!-- Stats Fragment -->
+    <fragment
+        android:id="@+id/nav_stats"
+        android:name="com.wellnessapp.ui.stats.StatsFragment"
+        android:label="@string/nav_stats"
+        tools:layout="@layout/fragment_stats" />
+
+    <!-- Mood Fragment -->
+    <fragment
+        android:id="@+id/nav_mood"
+        android:name="com.wellnessapp.ui.mood.MoodFragment"
+        android:label="@string/nav_mood"
+        tools:layout="@layout/fragment_mood" />
+
+    <!-- Calendar Fragment - Temporarily disabled due to compilation errors -->
+    <!-- <fragment
+        android:id="@+id/nav_calendar"
+        android:name="com.wellnessapp.ui.calendar.CalendarFragment"
+        android:label="@string/nav_calendar"
+        tools:layout="@layout/fragment_calendar" /> -->
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.wellnessapp.ui.profile.ProfileFragment"
+        android:label="@string/nav_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <!-- Activities will be added as needed -->
+
+</navigation>

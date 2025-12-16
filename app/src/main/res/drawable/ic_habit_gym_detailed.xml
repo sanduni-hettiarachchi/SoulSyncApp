@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Dumbbell -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M16,20L20,20L20,28L16,28L16,20Z" />
+    
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M28,20L32,20L32,28L28,28L28,20Z" />
+    
+    <!-- Dumbbell bar -->
+    <path
+        android:fillColor="#D84315"
+        android:pathData="M20,22L28,22L28,26L20,26L20,22Z" />
+    
+    <!-- Weights -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M14,18L18,18L18,30L14,30L14,18Z" />
+    
+    <path
+        android:fillColor="#795548"
+        android:pathData="M30,18L34,18L34,30L30,30L30,18Z" />
+    
+    <!-- Gym floor -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M8,36L40,36L40,40L8,40L8,36Z" />
+    
+    <!-- Gym lines -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M8,36L40,36L40,37L8,37L8,36Z" />
+    
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M8,38L40,38L40,39L8,39L8,38Z" />
+</vector>

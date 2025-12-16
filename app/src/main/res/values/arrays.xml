@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="time_period_options">
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+</resources>

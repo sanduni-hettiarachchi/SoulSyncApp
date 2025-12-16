@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/background_light"
+    tools:context=".MoodSelectionActivity">
+
+    <!-- Header with back and close buttons -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+        
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back" />
+            
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_close"
+            android:contentDescription="Close" />
+    </RelativeLayout>
+
+    <!-- Large emoji display -->
+    <TextView
+        android:id="@+id/tvLargeEmoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="😐"
+        android:textSize="48sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How would you express what you're feeling?"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"/>
+
+    <GridLayout
+        android:id="@+id/mood_buttons_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="4"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAnxious"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Anxious"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Bored"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBusy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Busy"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCalm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Calm"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfused"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Confused"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Fine"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFrustrated"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Frustrated"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDistant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Distant"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDistracted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Distracted"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStressed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Stressed"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTired"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:text="Tired"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/primary_indigo"
+            app:strokeWidth="1dp"
+            android:backgroundTint="@color/background_white"
+            android:textColor="@color/text_primary"/>
+
+    </GridLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnHereHowFeel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Here's how I feel"
+        android:padding="12dp"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        android:backgroundTint="@color/primary_indigo"
+        android:textColor="@color/text_white"/>
+
+</LinearLayout>

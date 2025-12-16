@@ -1,0 +1,505 @@
+package com.wellnessapp.ui.calendar
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.GridLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.wellnessapp.R
+import com.wellnessapp.databinding.FragmentCalendarBinding
+import com.wellnessapp.data.RealtimeDataManager
+import com.wellnessapp.data.Mood
+import com.wellnessapp.data.MoodTypes
+import java.text.SimpleDateFormat
+import java.util.*
+
+/**
+ * Calendar Fragment - Shows daily history of habits & moods
+ * Features:
+ * - Calendar view with color-coded days
+ * - Green: All habits completed, Yellow: Partial, Red: None
+ * - Tap day to see detailed view of moods + habits
+ * - Month navigation
+ */
+class CalendarFragment : Fragment() {
+
+    private var _binding: FragmentCalendarBinding? = null
+    private val binding get() = _binding!!
+    
+    private lateinit var calendarViewModel: CalendarViewModel
+    private lateinit var realtimeDataManager: RealtimeDataManager
+    private val calendar = Calendar.getInstance()
+    private val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+    
+    // Ensure we start with current month, not future months
+    init {
+        // Set calendar to current month
+        calendar.time = Date()
+    }
+    private val moodData = mutableMapOf<Int, Mood>() // day -> mood
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+        // Initialize ViewModel and RealtimeDataManager
+        calendarViewModel = ViewModelProvider(this)[CalendarViewModel::class.java]
+        realtimeDataManager = RealtimeDataManager.getInstance()
+        realtimeDataManager.initialize(requireContext())
+        
+        // Initially hide the selected day card
+        binding.cardSelectedDay.visibility = android.view.View.GONE
+        
+        setupCalendar()
+        setupNavigation()
+        setupObservers()
+        
+        // Generate dummy data first
+        generateInitialData()
+        
+        loadMoodData()
+        
+        // Ensure calendar is populated immediately
+        android.util.Log.d("CalendarFragment", "About to populate calendar")
+        populateCalendar()
+        android.util.Log.d("CalendarFragment", "Calendar population completed")
+    }
+
+    /**
+     * Generate initial dummy data for calendar
+     */
+    private fun generateInitialData() {
+        try {
+            android.util.Log.d("CalendarFragment", "Generating initial dummy data")
+            
+            // Generate dummy data through DataManager
+            val dataManager = com.wellnessapp.data.DataManager.getInstance(requireContext())
+            dataManager.generateDummyData()
+            
+            // Generate dummy data through RealtimeDataManager
+            realtimeDataManager.generateDummyDataIfNeeded()
+            
+            // Force refresh of all data
+            realtimeDataManager.refreshData()
+            
+            android.util.Log.d("CalendarFragment", "Initial dummy data generated successfully")
+        } catch (e: Exception) {
+            android.util.Log.e("CalendarFragment", "Error generating initial data: ${e.message}", e)
+        }
+    }
+    
+    /**
+     * Load mood data for the current month
+     */
+    private fun loadMoodData() {
+        realtimeDataManager.todayMoods.observe(viewLifecycleOwner) { moods ->
+            moodData.clear()
+            moods.forEach { mood ->
+                val moodCalendar = Calendar.getInstance()
+                moodCalendar.timeInMillis = mood.date
+                val day = moodCalendar.get(Calendar.DAY_OF_MONTH)
+                moodData[day] = mood
+            }
+            populateCalendar()
+        }
+    }
+
+    /**
+     * Set up the calendar grid
+     */
+    private fun setupCalendar() {
+        android.util.Log.d("CalendarFragment", "Setting up calendar")
+        updateMonthYear()
+        populateCalendar()
+        android.util.Log.d("CalendarFragment", "Calendar setup completed")
+    }
+
+    /**
+     * Set up month navigation buttons
+     */
+    private fun setupNavigation() {
+        // Set up navigation arrows
+        binding.btnPrevMonth.setOnClickListener {
+            calendar.add(Calendar.MONTH, -1)
+            updateMonthYear()
+            populateCalendar()
+        }
+        
+        binding.btnNextMonth.setOnClickListener {
+            calendar.add(Calendar.MONTH, 1)
+            updateMonthYear()
+            populateCalendar()
+        }
+        
+        // Set up view tabs
+        binding.tvDailyTab.setOnClickListener {
+            // Switch to daily view (could be implemented later)
+            android.util.Log.d("CalendarFragment", "Daily view selected")
+        }
+        
+        binding.tvMonthlyTab.setOnClickListener {
+            // Already in monthly view
+            android.util.Log.d("CalendarFragment", "Monthly view selected")
+        }
+        
+        // Ensure we're showing current month on startup
+        calendar.time = Date()
+        updateMonthYear()
+    }
+
+    /**
+     * Set up observers for ViewModel data
+     */
+    private fun setupObservers() {
+        calendarViewModel.selectedDateData.observe(viewLifecycleOwner) { dateData ->
+            updateSelectedDayDetails(dateData)
+        }
+    }
+
+    /**
+     * Update month and year display
+     */
+    private fun updateMonthYear() {
+        binding.tvMonthYear.text = dateFormat.format(calendar.time)
+        updateAverageMood()
+    }
+    
+    /**
+     * Update average mood display
+     */
+    private fun updateAverageMood() {
+        val moods = moodData.values.toList()
+        if (moods.isNotEmpty()) {
+            val avgMood = moods.map { it.getMoodLevel() }.average()
+            val moodEmoji = when {
+                avgMood >= 4 -> "😊"
+                avgMood >= 3 -> "😐"
+                avgMood >= 2 -> "😔"
+                else -> "😢"
+            }
+            val moodText = when {
+                avgMood >= 4 -> "Happy"
+                avgMood >= 3 -> "Okay"
+                avgMood >= 2 -> "Sad"
+                else -> "Very Sad"
+            }
+            
+            // Average mood display removed from layout
+    }
+
+    /**
+     * Populate the calendar grid with days
+     */
+    private fun populateCalendar() {
+        try {
+            android.util.Log.d("CalendarFragment", "Populating calendar")
+        binding.calendarGrid.removeAllViews()
+        
+        val calendarCopy = calendar.clone() as Calendar
+        calendarCopy.set(Calendar.DAY_OF_MONTH, 1)
+        
+            // Get first day of month (1=Sunday, 2=Monday, ..., 7=Saturday)
+        val firstDayOfMonth = calendarCopy.get(Calendar.DAY_OF_WEEK)
+        val daysInMonth = calendarCopy.getActualMaximum(Calendar.DAY_OF_MONTH)
+            
+            android.util.Log.d("CalendarFragment", "First day of month: $firstDayOfMonth, Days in month: $daysInMonth")
+            
+            // Convert to 0-based index where 0=Sunday, 1=Monday, ..., 6=Saturday
+            val firstDayIndex = if (firstDayOfMonth == Calendar.SUNDAY) 0 else firstDayOfMonth - 1
+        
+        // Add empty cells for days before the first day of month
+            for (i in 0 until firstDayIndex) {
+            val emptyView = TextView(requireContext())
+                val params = GridLayout.LayoutParams()
+                params.width = 0
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                params.columnSpec = GridLayout.spec(i)
+                params.rowSpec = GridLayout.spec(0)
+                emptyView.layoutParams = params
+            binding.calendarGrid.addView(emptyView)
+        }
+        
+        // Add day cells
+        for (day in 1..daysInMonth) {
+                android.util.Log.d("CalendarFragment", "Creating day view for day: $day")
+            val dayView = createDayView(day)
+                val params = GridLayout.LayoutParams()
+                params.width = 0
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                val column = (firstDayIndex + day - 1) % 7
+                val row = (firstDayIndex + day - 1) / 7
+                params.columnSpec = GridLayout.spec(column)
+                params.rowSpec = GridLayout.spec(row)
+                dayView.layoutParams = params
+            binding.calendarGrid.addView(dayView)
+            }
+            
+            android.util.Log.d("CalendarFragment", "Calendar populated successfully")
+        } catch (e: Exception) {
+            android.util.Log.e("CalendarFragment", "Error populating calendar: ${e.message}", e)
+        }
+    }
+
+    /**
+     * Create a day view with mood indicators
+     */
+    private fun createDayView(day: Int): View {
+        try {
+            android.util.Log.d("CalendarFragment", "Creating day view for day: $day")
+        val dayView = LayoutInflater.from(context).inflate(R.layout.item_calendar_day, null)
+        
+        val tvDay = dayView.findViewById<TextView>(R.id.tv_day)
+            val moodIndicator = dayView.findViewById<LinearLayout>(R.id.mood_indicator)
+            val tvMoodEmoji = dayView.findViewById<TextView>(R.id.tv_mood_emoji)
+            val ivFingerTap = dayView.findViewById<ImageView>(R.id.iv_finger_tap)
+            
+            android.util.Log.d("CalendarFragment", "Day view components found: tvDay=$tvDay, moodIndicator=$moodIndicator")
+            
+        tvDay.text = day.toString()
+            android.util.Log.d("CalendarFragment", "Day text set to: $day")
+            
+            // Set mood indicator based on mood data
+            val moodStatus = getMoodStatus(day)
+            when (moodStatus) {
+            MoodStatus.HAS_MOOD_SOLID -> {
+                moodIndicator.background = resources.getDrawable(R.drawable.mood_indicator_solid_green, null)
+                tvMoodEmoji.text = "😊"
+                tvMoodEmoji.setTextColor(resources.getColor(R.color.text_white, null))
+            }
+            MoodStatus.HAS_MOOD_OUTLINE -> {
+                moodIndicator.background = resources.getDrawable(R.drawable.mood_indicator_outline, null)
+                tvMoodEmoji.text = "😊"
+                tvMoodEmoji.setTextColor(resources.getColor(R.color.text_primary, null))
+            }
+            MoodStatus.NO_MOOD -> {
+                moodIndicator.background = resources.getDrawable(R.drawable.mood_indicator_background, null)
+                tvMoodEmoji.text = "😊"
+                tvMoodEmoji.setTextColor(resources.getColor(R.color.background_light_gray, null))
+            }
+            MoodStatus.FUTURE_DATE -> {
+                moodIndicator.background = resources.getDrawable(R.drawable.mood_indicator_background, null)
+                tvMoodEmoji.text = ""
+            }
+        }
+        
+        // Set click listener with visual feedback
+        dayView.setOnClickListener {
+            // Add visual feedback
+            dayView.isSelected = true
+            ivFingerTap.visibility = android.view.View.VISIBLE
+            
+            // Add animation for selection
+            dayView.animate()
+                .scaleX(1.1f)
+                .scaleY(1.1f)
+                .setDuration(150)
+                .withEndAction {
+                    dayView.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(150)
+                        .start()
+                }
+                .start()
+            
+            selectDay(day)
+        }
+        
+        return dayView
+        } catch (e: Exception) {
+            android.util.Log.e("CalendarFragment", "Error creating day view: ${e.message}", e)
+            // Return a simple TextView as fallback
+            val fallbackView = TextView(requireContext())
+            fallbackView.text = day.toString()
+            return fallbackView
+        }
+    }
+
+    /**
+     * Get habit completion status for a specific day
+     */
+    private fun getHabitCompletionStatus(day: Int): HabitCompletionStatus {
+        // Sample implementation - in real app, this would check SharedPreferences
+        return when (day % 3) {
+            0 -> HabitCompletionStatus.ALL_COMPLETED
+            1 -> HabitCompletionStatus.PARTIAL
+            else -> HabitCompletionStatus.NONE
+        }
+    }
+    
+    /**
+     * Get mood status for a specific day
+     */
+    private fun getMoodStatus(day: Int): MoodStatus {
+        // Sample implementation - in real app, this would check mood data
+        val today = Calendar.getInstance()
+        val currentDay = today.get(Calendar.DAY_OF_MONTH)
+        val currentMonth = today.get(Calendar.MONTH)
+        val currentYear = today.get(Calendar.YEAR)
+        
+        val dayMonth = calendar.get(Calendar.MONTH)
+        val dayYear = calendar.get(Calendar.YEAR)
+        
+        // Check if this is a future date
+        if (dayYear > currentYear || (dayYear == currentYear && dayMonth > currentMonth) || 
+            (dayYear == currentYear && dayMonth == currentMonth && day > currentDay)) {
+            return MoodStatus.FUTURE_DATE
+        }
+        
+        // Sample mood data - in real app, this would check actual mood entries
+        return when (day % 7) {
+            0 -> MoodStatus.HAS_MOOD_SOLID  // Solid green for day 23
+            1 -> MoodStatus.HAS_MOOD_OUTLINE // Outline green for day 28
+            else -> MoodStatus.NO_MOOD
+        }
+    }
+    
+    enum class MoodStatus {
+        HAS_MOOD_SOLID, HAS_MOOD_OUTLINE, NO_MOOD, FUTURE_DATE
+    }
+
+    /**
+     * Select a day and show its details
+     */
+    private fun selectDay(day: Int) {
+        try {
+            android.util.Log.d("CalendarFragment", "Selecting day: $day")
+            
+        val selectedDate = Calendar.getInstance().apply {
+            set(Calendar.YEAR, calendar.get(Calendar.YEAR))
+            set(Calendar.MONTH, calendar.get(Calendar.MONTH))
+            set(Calendar.DAY_OF_MONTH, day)
+        }
+        
+            // Update selected date display
+            val dateFormat = SimpleDateFormat("MMMM d, yyyy", Locale.getDefault())
+        binding.tvSelectedDate.text = dateFormat.format(selectedDate.time)
+            android.util.Log.d("CalendarFragment", "Date set to: ${dateFormat.format(selectedDate.time)}")
+            
+            // Update mood display
+            val mood = moodData[day]
+            if (mood != null) {
+                val moodEmoji = when (mood.getMoodLevel()) {
+                    5 -> "😊"
+                    4 -> "😊"
+                    3 -> "😐"
+                    2 -> "😔"
+                    1 -> "😢"
+                    else -> "😊"
+                }
+                val moodText = when (mood.getMoodLevel()) {
+                    5 -> "Very Happy"
+                    4 -> "Happy"
+                    3 -> "Okay"
+                    2 -> "Sad"
+                    1 -> "Very Sad"
+                    else -> "Happy"
+                }
+                binding.tvSelectedMoodEmoji.text = moodEmoji
+                binding.tvSelectedMood.text = moodText
+                android.util.Log.d("CalendarFragment", "Mood set to: $moodText")
+            } else {
+                binding.tvSelectedMoodEmoji.text = "😊"
+                binding.tvSelectedMood.text = "Happy"
+                android.util.Log.d("CalendarFragment", "No mood data, using default")
+            }
+            
+            // Update habits display
+        updateSelectedDayHabits(day)
+        
+            // Update note
+            binding.tvSelectedNote.text = "Note: Felt energetic after morning jog."
+            android.util.Log.d("CalendarFragment", "Note set")
+            
+            // Show the selected day card with animation
+            binding.cardSelectedDay.visibility = android.view.View.VISIBLE
+            binding.cardSelectedDay.alpha = 0f
+            binding.cardSelectedDay.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .start()
+            
+            android.util.Log.d("CalendarFragment", "Selected day card shown")
+        } catch (e: Exception) {
+            android.util.Log.e("CalendarFragment", "Error selecting day: ${e.message}", e)
+        }
+    }
+
+    /**
+     * Update mood for selected day
+     */
+    private fun updateSelectedDayMood(day: Int) {
+        val moods = listOf("😊 Happy", "😢 Sad", "😡 Angry", "😴 Tired", "🤩 Excited")
+        val mood = moods[day % moods.size]
+        binding.tvSelectedMood.text = mood
+    }
+
+    /**
+     * Update habits for selected day
+     */
+    private fun updateSelectedDayHabits(day: Int) {
+        try {
+            android.util.Log.d("CalendarFragment", "Updating habits for day: $day")
+        val habitsList = binding.habitsCompletedList
+        habitsList.removeAllViews()
+        
+            // Generate habits based on day (for demo purposes)
+            val habits = when (day % 4) {
+                0 -> listOf("✅ Meditate 10 min", "✅ Read 20 pages", "✅ Exercise 30 min")
+                1 -> listOf("✅ Meditate 10 min", "❌ Read 20 pages", "❌ Exercise 30 min")
+                2 -> listOf("❌ Meditate 10 min", "✅ Read 20 pages", "✅ Exercise 30 min")
+                else -> listOf("✅ Meditate 10 min", "✅ Read 20 pages", "❌ Exercise 30 min")
+            }
+            
+            android.util.Log.d("CalendarFragment", "Generated ${habits.size} habits")
+        
+        habits.forEach { habit ->
+            val habitView = TextView(requireContext())
+            habitView.text = habit
+            habitView.textSize = 14f
+            habitView.setTextColor(resources.getColor(
+                if (habit.startsWith("✅")) R.color.primary_green else R.color.primary_red, 
+                null
+            ))
+                habitView.setPadding(0, 0, 0, 4)
+            habitsList.addView(habitView)
+            }
+            
+            android.util.Log.d("CalendarFragment", "Habits updated successfully")
+        } catch (e: Exception) {
+            android.util.Log.e("CalendarFragment", "Error updating habits: ${e.message}", e)
+        }
+    }
+
+    /**
+     * Update selected day details from ViewModel
+     */
+    private fun updateSelectedDayDetails(dateData: DateData?) {
+        dateData?.let { data ->
+            binding.tvSelectedDate.text = data.dateString
+            binding.tvSelectedMood.text = data.mood
+            // Update habits list with data.habits
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+// HabitCompletionStatus enum moved to separate file

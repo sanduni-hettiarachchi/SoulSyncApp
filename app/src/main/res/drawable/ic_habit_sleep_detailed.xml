@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Moon -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:pathData="M32,8C32,8 28,12 28,16C28,20 30,22 32,22C34,22 36,20 36,16C36,12 32,8 32,8Z" />
+    
+    <!-- Moon crescent -->
+    <path
+        android:fillColor="#81D4FA"
+        android:pathData="M32,10C32,10 30,12 30,16C30,18 31,19 32,19C33,19 34,18 34,16C34,12 32,10 32,10Z" />
+    
+    <!-- Stars -->
+    <path
+        android:fillColor="#FFF59D"
+        android:pathData="M12,12L14,12L14,14L12,14L12,12Z" />
+    
+    <path
+        android:fillColor="#FFF59D"
+        android:pathData="M20,16L22,16L22,18L20,18L20,16Z" />
+    
+    <path
+        android:fillColor="#FFF59D"
+        android:pathData="M16,24L18,24L18,26L16,26L16,24Z" />
+    
+    <!-- Pillow -->
+    <path
+        android:fillColor="#F3E5F5"
+        android:pathData="M8,28L24,28L24,32L8,32L8,28Z" />
+    
+    <!-- Person sleeping -->
+    <path
+        android:fillColor="#9C27B0"
+        android:pathData="M16,20C16,20 14,22 14,24C14,26 16,28 18,28C20,28 22,26 22,24C22,22 20,20 18,20C16,20 16,20 16,20Z" />
+    
+    <!-- Body -->
+    <path
+        android:fillColor="#9C27B0"
+        android:pathData="M18,28L18,36L20,36L20,28L18,28Z" />
+    
+    <!-- Z's for sleeping -->
+    <path
+        android:fillColor="#E1BEE7"
+        android:pathData="M20,30L24,30L24,32L20,32L20,30Z" />
+    
+    <path
+        android:fillColor="#E1BEE7"
+        android:pathData="M22,32L26,32L26,34L22,34L22,32Z" />
+</vector>
